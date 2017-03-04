@@ -84,8 +84,29 @@ This is a list (see the `[ ]` syntax), and each element in the list is an object
 This ListView will go through each item in the `forecasts` list, and call `renderRow={(forecast) => <WeatherForecastRow forecast={forecast} />}`.  After each row is rendered to the screen, you'll be able to scroll up and down!
 
 ### fetch()
-Next class!
+To get data from another server in React Native, we can use the `fetch` function. We give it a URL as an argument, and it gives us back the data at that URL... eventually.
 
+Getting data from another server can take a long time. If your app just stopped and waited until the data arrived, it would seem very laggy to the user: they might try to tap buttons or type input and get no response at all, making them very crabby. To solve this, anything that involves going over the network is done **asynchronously**. The `fetch` function actually returns a **Promise**, a special object that represents something that will be available sometime in the future. We can give this promise object an event handler that it should call when the data come in. Until then, your app can keep doing all of the other things it needs to do, like responding to user input.
 
+Here is the code in our example. `.then()` is the function that takes the event handler that will be called when the data arrive. This code, then, gets the returned data, converts it from HTML into a JavaScript object (JSON), just like the objects we have been talking about, and then uses that object to get the data.
 
-
+```
+export function getForecastForCity(city) {
+  return fetch('https://api.aerisapi.com/forecasts/'+city+'?client_id='+AERIS_CLIENT_ID+'&client_secret='+AERIS_CLIENT_SECRET)
+  .then(response => response.json())
+  .then(responseJson => {
+    if (responseJson.success) {
+      return {
+        error: false,
+        city: city,
+        forecast: parseForecast(responseJson.response[0].periods),
+      };
+    }
+    else {
+      return {
+        error: true,
+      };
+    }
+  });
+}
+```

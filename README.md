@@ -44,6 +44,13 @@ Change values like you would change a normal variable's value:
 ```
 myClassInfo.myAttendanceStatus = 'Everyone is feeling better';
 ```
+This may look familiar to you, because we have been setting the state object in our components, like in our weather location form component:
+```
+    this.state = {
+      city: '',
+    };
+```
+You might further notice the dot notation in this.state: our component itself is an object, which we have access to through the special 'this' variable. Here we are setting the state object in our component object.
 
 ### ListView component
 Take a look at the 'weatherForecast.js' file:

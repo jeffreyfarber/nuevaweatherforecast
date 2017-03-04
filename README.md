@@ -6,7 +6,7 @@ Let's use this React Native app to explore three concepts:
  3. fetch()
 
 ### Variables of variables
-Last class we explored the concept of a variable:
+In previous classes we explored the concept of a variable:
 ```
 var myClassName = 'Mobile App Design';
 var myBlock = 4;
